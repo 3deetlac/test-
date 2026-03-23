@@ -19,13 +19,10 @@
             --btn-bg: #eeeeee; --job-bg: #fdfdfd;
         }
 
-        /* OPRAVA: overflow-x: hidden pre zabránenie horizontálnemu scrollu na mobile */
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); padding: 10px; margin: 0; transition: background 0.3s, color 0.3s; overflow-x: hidden;}
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); padding: 10px; margin: 0; transition: background 0.3s, color 0.3s; overflow-x: hidden; }
         
         #user_display { font-size: 0.8em; color: var(--success); font-weight: bold; margin-bottom: 5px; text-transform: uppercase; min-height: 1.2em; }
-        
-        /* OPRAVA: pointer-events: none aby text neblokoval dotyky na displeji */
-        #total_users_display { position: fixed; bottom: 5px; left: 10px; font-size: 0.7em; color: #888; font-weight: bold; z-index: 50; background: var(--bg); padding: 2px 5px; border-radius: 4px; pointer-events: none; opacity: 0.8;}
+        #total_users_display { position: fixed; bottom: 5px; left: 10px; font-size: 0.7em; color: #888; font-weight: bold; z-index: 50; background: var(--bg); padding: 2px 5px; border-radius: 4px; pointer-events: none; opacity: 0.8; }
 
         .header { width: 100%; max-width: 1200px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 12px; margin: 0 auto 15px auto; gap: 10px; }
         .header-center { flex-grow: 1; text-align: center; }
@@ -42,10 +39,7 @@
 
         .btn-info { background: transparent; color: var(--primary); border: 1px solid var(--primary); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.7em; cursor: pointer; font-weight: bold; margin-left: 5px;}
 
-        /* OPRAVA: padding-bottom aby na mobile nezmizla posledná karta */
-        .main-layout { width: 100%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; padding-bottom: 50px;}
-        
-        /* OPRAVA: sticky efekt aplikujeme iba pre väčšie obrazovky */
+        .main-layout { width: 100%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; padding-bottom: 50px; }
         @media (min-width: 768px) { 
             .main-layout { grid-template-columns: 340px 1fr; } 
             .sticky { position: sticky; top: 15px; z-index: 10; }
@@ -88,22 +82,30 @@
         .card-profit { border: 2px solid var(--success); color: var(--success); }
 
         .search-input { width: 100%; background: var(--job-bg); border: 2px solid var(--primary); color: var(--text); padding: 12px; border-radius: 10px; font-weight: bold; box-sizing: border-box; margin-bottom: 15px; }
-
+        /* ZÁKLADNÁ KARTA (TMAVÁ) */
         .job-card { background: #111; border: 1px solid #333; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; overflow: hidden; position: relative; transition: 0.2s; }
         .job-card.is-editing { border: 2px solid var(--accent) !important; background: rgba(255, 204, 0, 0.15) !important; }
         .job-card.is-cp { opacity: 0.8; border-style: dashed; }
         .job-card.drag-over { border: 2px dashed var(--primary); transform: scale(1.02); }
-        
         .type-buy { border-left: 5px solid var(--danger); }
         .type-print { border-left: 5px solid var(--primary); }
 
+        /* OPRAVA: Svetlý režim pre karty (Light Theme) */
+        .light-theme .job-card { background: #fff; border: 1px solid #ccc; color: #111; }
+        .light-theme .job-card.is-editing { background: #fffde6 !important; }
+        .light-theme .job-card.is-cp { border-style: dashed; opacity: 0.9; }
+        .light-theme .job-name { color: #000; }
+
         .sort-controls { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px; border-right: 1px solid var(--border); }
+        .light-theme .sort-controls { border-right: 1px solid #ccc; background: #f9f9f9; }
         .sc-btn { font-size: 0.9em; cursor: pointer; color: #888; transition: 0.2s; user-select: none; }
         .sc-drag { font-weight: bold; font-size: 1.3em; cursor: grab; padding: 2px; }
 
-        .job-info { flex: 1; padding: 10px; min-width: 100px; overflow: hidden; }
-        .job-name { font-weight: bold; display: block; font-size: 1em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .job-tag { font-size: 0.55em; padding: 1px 4px; border-radius: 4px; margin-left: 5px; vertical-align: middle; }
+        /* OPRAVA: Zalamovanie textu pre dlhé názvy (.job-name) */
+        .job-info { flex: 1; padding: 10px; min-width: 100px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+        .job-name { font-weight: bold; font-size: 1em; line-height: 1.25; word-wrap: break-word; word-break: break-word; white-space: normal; margin-bottom: 4px; }
+        
+        .job-tag { font-size: 0.55em; padding: 2px 4px; border-radius: 4px; margin-left: 5px; vertical-align: middle; display: inline-block; white-space: nowrap; }
         .tag-cp { background: #666; color: #fff; }
         .tag-ok { background: var(--success); color: #000; }
 
@@ -114,23 +116,29 @@
         .val-per-pc { font-size: 0.65em; font-weight: normal; color: #888; margin-top: 1px; }
 
         .job-profit { min-width: 80px; text-align: right; font-weight: 900; font-size: 1.1em; border-left: 1px solid var(--border); padding: 10px; display: flex; flex-direction: column; justify-content: center; }
+        .light-theme .job-profit { border-left: 1px solid #ccc; }
         .profit-label { font-size: 0.45em; display: block; color: #888; text-transform: uppercase; }
         
         .actions { display: flex; gap: 4px; padding: 8px; }
         .action-btn { background: var(--btn-bg); border: 1px solid var(--border); color: #888; cursor: pointer; padding: 6px; border-radius: 6px; transition: 0.3s; font-size: 0.9em; }
+        .light-theme .action-btn { background: #eee; border-color: #ccc; color: #333; }
         .action-btn.active-status { background: var(--success); color: #000; border-color: var(--success); }
-        .action-btn.is-active-edit { background: var(--accent) !important; color: #000 !important; animation: pulse-edit 1.5s infinite; }
+        .action-btn.is-active-edit { background: var(--accent) !important; color: #000 !important; animation: pulse-edit 1.5s infinite; border-color: var(--accent); }
 
         @keyframes pulse-edit { 0% { box-shadow: 0 0 5px var(--accent); } 50% { box-shadow: 0 0 12px var(--accent); } 100% { box-shadow: 0 0 5px var(--accent); } }
 
-        /* OPRAVA: Preusporiadanie karty pre mobil do stĺpcov, aby údaje nepretekali von z obrazovky */
+        /* OPRAVA pre mobil a zalamovanie */
         @media (max-width: 600px) {
             .job-card { flex-direction: column; align-items: stretch; padding: 5px; }
             .sort-controls { flex-direction: row; border-right: none; border-bottom: 1px solid var(--border); padding: 5px; justify-content: center; height: auto;}
+            .light-theme .sort-controls { border-bottom: 1px solid #ccc; }
             .job-info { padding: 10px 5px; text-align: center; }
+            .job-name { text-align: center; } /* Na mobile vycentrovat */
             .job-data { justify-content: space-around; background: rgba(0,0,0,0.1); border-radius: 8px; padding: 10px; margin-bottom: 5px; }
+            .light-theme .job-data { background: #f0f0f0; }
             .data-item { align-items: center; }
             .job-profit { border-left: none; border-top: 1px solid var(--border); flex-direction: row; justify-content: space-between; align-items: center; padding: 10px 5px; }
+            .light-theme .job-profit { border-top: 1px solid #ccc; }
             .actions { justify-content: center; flex-wrap: wrap; }
             .action-btn { flex: 1; min-width: 45px; padding: 10px;}
         }
@@ -143,7 +151,7 @@
     </style>
 </head>
 <body>
-<div id="total_users_display"></div>
+    <div id="total_users_display"></div>
 
 <div class="header">
     <div>
@@ -191,7 +199,7 @@
         </div>
 
         <label id="lbl_name">Názov Projektu</label>
-        <input type="text" id="in_name" placeholder="...">
+        <input type="text" id="in_name" placeholder="..." maxlength="50">
         <div class="row">
             <div><label id="lbl_w">Váha/ks (g)</label><input type="number" id="in_w" step="any"></div>
             <div><label id="lbl_count">Počet ks</label><input type="number" id="in_count" value="1"></div>
@@ -445,7 +453,7 @@
         items.unshift({id:Date.now(), type:'buy', status:'ok', name:n, sell: v>0?v:0, cost: v<0?Math.abs(v):0, profit:v, date: new Date().toLocaleString(), currency: currentCurr});
         refreshUI();
     }
-    
+
     function moveListItem(id, action) {
         const idx = items.findIndex(i => i.id === id); if (idx < 0) return;
         const item = items.splice(idx, 1)[0];
@@ -497,7 +505,7 @@
             const count = i.count || 1;
             const costPer = dCost / count; 
             const sellPer = dSell / count; 
-            const countText = count > 1 ? ` <span style="font-size:0.7em; color:var(--primary);">(${count} ks)</span>` : "";
+            const countText = count > 1 ? ` <span style="font-size:0.7em; color:var(--primary); white-space:nowrap;">(${count} ks)</span>` : "";
 
             const card = document.createElement('div');
             card.className = `job-card type-${i.type} ${isEditing ? 'is-editing' : ''} ${isCP ? 'is-cp' : ''}`;
@@ -514,8 +522,15 @@
                     <div class="sc-btn sc-drag">=</div>
                     <div class="sc-btn" onclick="moveListItem(${i.id}, 'bottom')">▼</div>
                 </div>
-                <div class="job-info"><span class="job-name">${i.name}${countText} <span class="job-tag ${isCP?'tag-cp':'tag-ok'}">${isCP?'CP':'OK'}</span></span>
-                <div style="font-size:0.65em; color:#888; font-weight:bold;">${(i.totalW||0).toFixed(0)}g | ${Math.floor((i.mins||0)/60)}h ${(i.mins||0)%60}m</div></div>
+                <div class="job-info">
+                    <div>
+                        <span class="job-name">${i.name}</span>${countText} 
+                        <span class="job-tag ${isCP?'tag-cp':'tag-ok'}">${isCP?'CP':'OK'}</span>
+                    </div>
+                    <div style="font-size:0.65em; color:#888; font-weight:bold; margin-top: 4px;">
+                        ${(i.totalW||0).toFixed(0)}g | ${Math.floor((i.mins||0)/60)}h ${(i.mins||0)%60}m
+                    </div>
+                </div>
                 <div class="job-data">
                     <div class="data-item">
                         <span class="data-label">${t.cost}</span>
