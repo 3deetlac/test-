@@ -574,7 +574,7 @@
                 const d = await res.json(); alert(d.message); if(!d.error) { loggedUserNick = nick; updateUserDisplay(); }
             } else if(action === 'backup') {
                 const settings = { fil: document.getElementById('cfg_fil').value, ele: document.getElementById('cfg_ele').value, watt: document.getElementById('cfg_watt').value, lang: currentLang, curr: currentCurr };
-                const res = await fetch(CLOUD_URL, { method: 'POST', body: JSON.stringify({action: 'backup', pass: pass, data: items, settings: settings}) });
+                const res = await fetch(CLOUD_URL, { method: 'POST', body: JSON.stringify({action: 'backup', nick: loggedUserNick, pass: pass, data: items, settings: settings}) });
                 const d = await res.json(); alert(d.message);
             } else if(action === 'restore') {
                 const res = await fetch(`${CLOUD_URL}?action=restore&pass=${encodeURIComponent(pass)}`);
