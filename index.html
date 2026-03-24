@@ -587,7 +587,9 @@
                         document.getElementById('cfg_watt').value = d.settings.watt || 120;
                         currentLang = d.settings.lang || 'sk'; 
                         currentCurr = d.settings.curr || 'EUR';
-                        setCurrency(currentCurr, true); setLang(currentLang);
+                        currentLang = d.settings.lang || 'sk'; 
+                        setCurrency(currentCurr, true); 
+                        setLang(currentLang);
                     }
                     refreshUI(); updateUserDisplay(); alert("Záloha a nastavenia boli úspešne obnovené.");
                 }
