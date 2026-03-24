@@ -251,7 +251,7 @@
     <button class="btn-add" id="btn_modal_close" onclick="closeInfo()">Zavrieť</button>
 </div>
         <script>
-    const CLOUD_URL = "https://script.google.com/macros/s/AKfycbyChxa54WP0Jz2qzGPgheQSmZQe4dKzXipfqR4b3XfHtqH1YmSudqIWjIeXzewoT5JP/exec";
+    const CLOUD_URL = "https://script.google.com/macros/s/AKfycbyIkRU3DE-xXX4uYc3RXCmgp7FgNmTiVQIXLDFPrT2SWY5VWGbQXSrjuPd52CxAS2xu/exec";
 
     let items = [];
     let editingId = null;
@@ -563,7 +563,7 @@
 
     async function handleCloud(action) {
         const t = dict[currentLang]; let pass, nick;
-        if(action === 'register') { nick = prompt(t.p_nick); if(!nick) return; pass = prompt(t.p_pass); if(!pass) return; }
+        if (action === 'register' || action === 'restore') { nick = prompt(t.p_nick); if (!nick) return; pass = prompt(t.p_pass); if (!pass) return; }
         else { pass = prompt(t.p_pass); if(!pass) return; }
         const btn = document.getElementById(action === 'register' ? 'btn_reg' : (action === 'backup' ? 'btn_backup' : 'btn_restore'));
         const origText = btn.innerText; btn.innerText = "⏳...";
